@@ -5,6 +5,6 @@ exports.booleanParser = {
     } else if (input.toLowerCase().startsWith("false")) {
       return [false, input.slice(5)];
     }
-    return [null,input];
+    return [undefined,input];
   }
 }
