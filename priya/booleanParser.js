@@ -10,7 +10,7 @@ exports.booleanparser = {
 		  return [false,string.slice(5,string.length).join('')]
 		}
 		else
-			 return [undefined,string.join('')]
+			 return [null,string.join('')]	
   } 
 }
  	
