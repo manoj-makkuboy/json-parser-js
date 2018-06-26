@@ -1,3 +1,4 @@
 var booleanParser = require('./booleanParser')
 
-console.log(booleanParser.booleanParser.booleanParser());
+var input = process.argv[2];
+console.log(booleanParser.booleanParser.booleanParser(input));
