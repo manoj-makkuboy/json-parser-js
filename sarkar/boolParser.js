@@ -7,5 +7,6 @@ exports.boolParser = {
       else if(toBeParsedString.startsWith("false")){
         return [false,toBeParsedString.substring(5)];
       }
+      return[null,toBeParsedString];
     }
   }
