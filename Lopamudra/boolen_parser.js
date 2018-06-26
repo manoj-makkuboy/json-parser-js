@@ -1,10 +1,16 @@
 function BooleanParser(inputValue){
-  if (inputValue.toLowerCase() === "true"){
-    return true;
+  var return_value = new Array();
+  if (inputValue.toLowerCase().substring(0, 4) === "true"){
+    return_value[0] = true;
+    return_value[1] = inputValue.substring(4);
+    return return_value;
   }
-  else if (inputValue.toLowerCase() === "false"){
-    return false;
+  else if (inputValue.toLowerCase().substring(0, 5) === "false"){
+    return_value[0] = false;
+    return_value[1] = inputValue.substring(5);
+    return return_value;
   }
+
   return 'wrong input';
 }
 
