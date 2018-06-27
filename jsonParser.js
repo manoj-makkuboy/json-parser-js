@@ -33,6 +33,22 @@ var unitParsers = {
     }
   },
 
+  colonParser: function colonParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = true
+
+    if (toBeParsed.match(/^:/) !== null) {
+      parsed = null
+      unParsed = toBeParsed.replace(':', '')
+      isParsed = true
+    }
+
+    return {
+      parsed, unParsed, isParsed
+    } 
+  },
+
   nullParser: function nullParser(toBeParsed) {
     let parsed = null
     let unParsed = toBeParsed
@@ -72,7 +88,6 @@ var unitParsers = {
     unParsed = toBeParsed.substr(count);
     return {parsed, unParsed, isParsed}
   }
-
 }
 
 var compoundParsers = {
