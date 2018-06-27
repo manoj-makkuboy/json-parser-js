@@ -31,6 +31,23 @@ var unitParsers = {
     return {
       parsed, unParsed
     }
+  },
+
+  colonParser: function colonParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = true
+
+    if (toBeParsed.match(/^:/) !== null) {
+      parsed = null
+      unParsed = toBeParsed.replace(':', '')
+      isParsed = true
+    }
+
+    return {
+      parsed, unParsed, isParsed
+    } 
+
   }
 
 }

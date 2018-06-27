@@ -32,6 +32,18 @@ describe('comma parser', function () {
   })
 })
 
+describe('colon parser', function () {
+  it('remove the colon from index 0', function () {
+    let colonParserResult = parsers.unitParsers.colonParser(':test')
+    assert.equal(colonParserResult.unParsed, 'test')
+  })
+
+  it('return the unparsed string as it is as it is not parseable', function () {
+    let colonParserResult = parsers.unitParsers.colonParser('test')
+    assert.equal(colonParserResult.unParsed, 'test')
+  })
+})
+
 describe('array parser', function () {
   it('Should parse the given array properly', function () {
     let arrayParserResult = parsers.compoundParsers.arrayParser('[true,false,true]')
