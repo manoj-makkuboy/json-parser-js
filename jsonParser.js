@@ -47,6 +47,30 @@ var unitParsers = {
     return {
       parsed, unParsed, isParsed
     }
+  },
+
+  numberParser : function numberParser(toBeParsed){
+    let parsed = null;
+    let unParsed = toBeParsed;
+    let isParsed = false
+
+    let count = 0;
+    let currentDigit  = toBeParsed.charAt(count);
+
+    if (!currentDigit.match(/\d/)) {
+      return {parsed, unParsed, isParsed}
+    }
+
+    parsed = '';
+    while (currentDigit.match(/\d/) !== null) {
+      parsed = parsed.concat(currentDigit);
+      count +=1;
+      currentDigit = toBeParsed.charAt(count);
+    }
+    parsed = parseInt(parsed);
+    isParsed = true;
+    unParsed = toBeParsed.substr(count);
+    return {parsed, unParsed, isParsed}
   }
 
 }

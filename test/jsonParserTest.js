@@ -57,3 +57,14 @@ describe('null parser', function(){
   });
 })
 
+describe('number parser', function(){
+  it('Should parse number part of toBeParsed string that starts with a number and return the remaining string as unParsed', function () {
+    assert.equal(JSON.stringify(parsers.unitParsers.numberParser('12345abcd')),
+      JSON.stringify({ parsed: 12345, unParsed: 'abcd', isParsed: true }));
+  });
+
+  it('Should parse not the toBeParsed string if it doesnt start with a number and return the entire string as unParsed', function () {
+    assert.equal(JSON.stringify(parsers.unitParsers.numberParser('abcd1234')),
+      JSON.stringify({ parsed: null, unParsed: 'abcd1234', isParsed: false }));
+  });
+})
