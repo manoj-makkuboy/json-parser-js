@@ -31,6 +31,22 @@ var unitParsers = {
     return {
       parsed, unParsed
     }
+  },
+
+  nullParser: function nullParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = false
+
+    if (toBeParsed.match(/^null/) !== null) {
+      parsed = null
+      unParsed = toBeParsed.replace(/^null/, '')
+      isParsed = true
+    }
+
+    return {
+      parsed, unParsed, isParsed
+    }
   }
 
 }
