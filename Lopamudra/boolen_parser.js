@@ -11,7 +11,7 @@ function BooleanParser(inputValue){
     return return_value;
   }
 
-  return 'wrong input';
+  return [null,inputValue];
 }
 
 var a = process.argv[2];
