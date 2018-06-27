@@ -57,3 +57,15 @@ describe('array parser', function () {
   })
 })
 
+describe('null parser', function(){
+  it('Should parse null value and return isParsed as true when to parse string starts with null', function () {
+    assert.equal(JSON.stringify(parsers.unitParsers.nullParser('null123')),
+      JSON.stringify({ parsed: null, unParsed: '123', isParsed: true }));
+  });
+
+  it('Should parse not value', function () {
+    assert.equal(JSON.stringify(parsers.unitParsers.nullParser('tnull')),
+      JSON.stringify({ parsed: null, unParsed: 'tnull', isParsed: false }));
+  });
+})
+
