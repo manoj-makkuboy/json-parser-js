@@ -1,4 +1,4 @@
-exports.parsers = {
+var unitParsers = {
 
   booleanParser: function booleanParser(toBeParsed) {
     let parsed = null
@@ -19,3 +19,33 @@ exports.parsers = {
     }
   }
 }
+
+var compoundParsers = {
+
+  arrayParser: function arrayParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+
+    if (unParsed[0] !== '[')
+      return { parsed, unParsed }
+
+    toBeParsed = toBeParsed.replace('[', '')
+
+    parsed = []
+
+    while (unParsed[0] !== ']') {
+      let booleanParserReturn = unitParsers.booleanParser(toBeParsed)
+      console.log('boolean parser return', booleanParserReturn)
+      parsed.push(booleanParserReturn.parsed)
+      unParsed = booleanParserReturn.unParsed
+    }
+
+    if (unParsed[0] === ']') {
+      unParsed = unParsed.replace(']', '')
+      return { parsed, unParsed }
+    }
+  }
+}
+
+exports.parsers = unitParsers
+exports.compoundParsers = compoundParsers
