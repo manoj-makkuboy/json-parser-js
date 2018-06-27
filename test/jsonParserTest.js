@@ -1,6 +1,6 @@
 
 var assert = require('assert');
-var parsers = require('../manoj/jsonParser')
+var parsers = require('../jsonParser')
 
 describe('boolean parser', function () {
   it('Should parse true value when to parse string starts with true', function () {
