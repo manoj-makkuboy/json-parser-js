@@ -35,15 +35,12 @@ var compoundParsers = {
 
     while (unParsed[0] !== ']') {
       let booleanParserReturn = unitParsers.booleanParser(toBeParsed)
-      console.log('boolean parser return', booleanParserReturn)
       parsed.push(booleanParserReturn.parsed)
       unParsed = booleanParserReturn.unParsed
     }
 
-    if (unParsed[0] === ']') {
-      unParsed = unParsed.replace(']', '')
-      return { parsed, unParsed }
-    }
+    unParsed = unParsed.replace(']', '')
+    return { parsed, unParsed }
   }
 }
 

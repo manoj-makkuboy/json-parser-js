@@ -20,3 +20,15 @@ describe('boolean parser', function () {
 
 });
 
+describe('comma parser', function () {
+  it('remove the comma from index 0', function () {
+    let commaParserResult = parsers.parsers.commaParser(',test')
+    assert.equal(commaParserResult.unParsed, 'test')
+  })
+
+  it('return the unparsed string as it is as it is not parseable', function () {
+    let commaParserResult = parsers.parsers.commaParser('test')
+    assert.equal(commaParserResult.unParsed, 'test')
+  })
+})
+
