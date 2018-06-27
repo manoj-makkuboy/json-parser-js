@@ -32,3 +32,16 @@ describe('comma parser', function () {
   })
 })
 
+describe('array parser', function () {
+  it('Should parse the given array properly', function () {
+    let arrayParserResult = parsers.compoundParsers.arrayParser('[true,false,true]')
+    assert.equal(arrayParserResult.parsed[0], true)
+    assert.equal(arrayParserResult.parsed[1], false)
+  })
+
+  it('Should return empty parsed array when the input it empty array string', function () {
+    let arrayParserResult = parsers.compoundParsers.arrayParser('[]')
+    assert.equal(arrayParserResult.parsed.length, 0)
+  })
+})
+
