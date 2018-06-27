@@ -1,7 +1,8 @@
 exports.parsers = {
 
   booleanParser: function booleanParser(toBeParsed) {
-    let parsed, unParsed
+    let parsed = null
+    let unParsed = toBeParsed
 
     if (toBeParsed.match(/^true/) !== null) {
       parsed = true
