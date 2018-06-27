@@ -48,18 +48,13 @@ var compoundParsers = {
 
     parsed = []
     unParsed = toBeParsed
-
     while (unParsed[0] !== ']') {
       let booleanParserReturn = unitParsers.booleanParser(unParsed)
       parsed.push(booleanParserReturn.parsed)
       unParsed = booleanParserReturn.unParsed
 
-      console.log('booelan return ', booleanParserReturn)
-
       let commaParserReturn = unitParsers.commaParser(unParsed)
       unParsed = commaParserReturn.unParsed
-
-      console.log('commaParser return ', commaParserReturn)
     }
 
     unParsed = unParsed.replace(']', '')
