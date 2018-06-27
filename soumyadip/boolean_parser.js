@@ -13,6 +13,6 @@ function myBooleanparser(string) {
     return bool;
   }
   return void 0;
-};
+}
 
 console.log(typeof myBooleanparser("true"))
