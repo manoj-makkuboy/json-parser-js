@@ -17,7 +17,22 @@ var unitParsers = {
     return {
       parsed, unParsed
     }
+  },
+
+  commaParser: function commaParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+
+    if (toBeParsed.match(/^,/) !== null) {
+      parsed = null
+      unParsed = toBeParsed.replace(',', '')
+    }
+
+    return {
+      parsed, unParsed
+    }
   }
+
 }
 
 var compoundParsers = {
@@ -32,11 +47,19 @@ var compoundParsers = {
     toBeParsed = toBeParsed.replace('[', '')
 
     parsed = []
+    unParsed = toBeParsed
 
     while (unParsed[0] !== ']') {
-      let booleanParserReturn = unitParsers.booleanParser(toBeParsed)
+      let booleanParserReturn = unitParsers.booleanParser(unParsed)
       parsed.push(booleanParserReturn.parsed)
       unParsed = booleanParserReturn.unParsed
+
+      console.log('booelan return ', booleanParserReturn)
+
+      let commaParserReturn = unitParsers.commaParser(unParsed)
+      unParsed = commaParserReturn.unParsed
+
+      console.log('commaParser return ', commaParserReturn)
     }
 
     unParsed = unParsed.replace(']', '')
