@@ -62,5 +62,5 @@ var compoundParsers = {
   }
 }
 
-exports.parsers = unitParsers
+exports.unitParsers = unitParsers
 exports.compoundParsers = compoundParsers
