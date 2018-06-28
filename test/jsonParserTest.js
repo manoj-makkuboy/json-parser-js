@@ -46,9 +46,10 @@ describe('colon parser', function () {
 
 describe('array parser', function () {
   it('Should parse the given array properly', function () {
-    let arrayParserResult = parsers.compoundParsers.arrayParser('[true,false,true]')
-    assert.equal(arrayParserResult.parsed[0], true)
+    let arrayParserResult = parsers.compoundParsers.arrayParser('[null,false,true]')
+    assert.equal(arrayParserResult.parsed[0], null)
     assert.equal(arrayParserResult.parsed[1], false)
+    assert.equal(arrayParserResult.parsed[2], true)
   })
 
   it('Should return empty parsed array when the input it empty array string', function () {

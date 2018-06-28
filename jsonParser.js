@@ -87,7 +87,7 @@ var unitParsers = {
     isParsed = true;
     unParsed = toBeParsed.substr(count);
     return {parsed, unParsed, isParsed}
-  }
+  },
 
   stringParser: function stringParser(toBeParsed){
     let unparsed = toBeParsed;
@@ -119,6 +119,7 @@ var compoundParsers = {
   arrayParser: function arrayParser(toBeParsed) {
     let parsed = null
     let unParsed = toBeParsed
+    let isParsed = false
 
     if (unParsed[0] !== '[')
       return { parsed, unParsed }
@@ -128,18 +129,27 @@ var compoundParsers = {
     parsed = []
     unParsed = toBeParsed
     while (unParsed[0] !== ']') {
+      let nullParserReturn = unitParsers.nullParser(unParsed)
+      unParsed = nullParserReturn.unParsed
+
       let booleanParserReturn = unitParsers.booleanParser(unParsed)
       parsed.push(booleanParserReturn.parsed)
       unParsed = booleanParserReturn.unParsed
 
       let commaParserReturn = unitParsers.commaParser(unParsed)
       unParsed = commaParserReturn.unParsed
+
+      isParsed = true
+
     }
 
     unParsed = unParsed.replace(']', '')
-    return { parsed, unParsed }
+    return { parsed, unParsed, isParsed }
   }
 }
 
 exports.unitParsers = unitParsers
 exports.compoundParsers = compoundParsers
+
+// var a = process.argv[2];
+// console.log(compoundParsers.arrayParser(a));
