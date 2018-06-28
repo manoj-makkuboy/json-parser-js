@@ -95,16 +95,17 @@ var unitParsers = {
     let unParsed = toBeParsed;
     let parsed = null;
     let index = 1;
-    let string = "'";
+    let string = "";
     let isParsed = false;
 
-    if (unParsed[0] === ("'"))
+    if ((unParsed[0] === ("'")) || (unParsed[0] === ("\"")))
       {
-       while(toBeParsed.charAt(index) !== "'"){
+       string = unParsed[0]
+       while(!['\'','"'].includes(toBeParsed.charAt(index))){
         s = toBeParsed.charAt(index)
         string = string.concat(s)
         index++
-       }
+      }
       string = string.concat(toBeParsed.charAt(index));
       parsed = string;
       if (parsed !== null){
