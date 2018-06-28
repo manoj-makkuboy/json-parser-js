@@ -44,20 +44,6 @@ describe('colon parser', function () {
   })
 })
 
-describe('array parser', function () {
-  it('Should parse the given array properly', function () {
-    let arrayParserResult = parsers.compoundParsers.arrayParser('[null,false,true]')
-    assert.equal(arrayParserResult.parsed[0], null)
-    assert.equal(arrayParserResult.parsed[1], false)
-    assert.equal(arrayParserResult.parsed[2], true)
-  })
-
-  it('Should return empty parsed array when the input it empty array string', function () {
-    let arrayParserResult = parsers.compoundParsers.arrayParser('[]')
-    assert.equal(arrayParserResult.parsed.length, 0)
-  })
-})
-
 describe('null parser', function(){
   it('Should parse null value and return isParsed as true when to parse string starts with null', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.nullParser('null123')),
@@ -107,6 +93,22 @@ describe('string parser', function(){
     assert.equal(JSON.stringify(parsers.unitParsers.stringParser("\"abcd13124\"")),
       JSON.stringify({ parsed: "abcd13124", unParsed: '', isParsed: true }));
   });
+})
+
+describe('array parser', function () {
+  it('Should parse the given array properly', function () {
+    let arrayParserResult = parsers.compoundParsers.arrayParser('[null,true,false,"abcd",1234]')
+    assert.equal(arrayParserResult.parsed[0], null)
+    assert.equal(arrayParserResult.parsed[1], true)
+    assert.equal(arrayParserResult.parsed[2], false)
+    assert.equal(arrayParserResult.parsed[3], "abcd")
+    assert.equal(arrayParserResult.parsed[4], 1234)
+  })
+
+  it('Should return empty parsed array when the input it empty array string', function () {
+    let arrayParserResult = parsers.compoundParsers.arrayParser('[]')
+    assert.equal(arrayParserResult.parsed.length, 0)
+  })
 })
 
 describe('object parser', function () {
