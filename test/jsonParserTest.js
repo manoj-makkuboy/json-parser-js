@@ -76,9 +76,14 @@ describe('number parser', function(){
       JSON.stringify({ parsed: 12345, unParsed: 'abcd', isParsed: true }));
   });
 
-  it('Should parse not the toBeParsed string if it doesnt start with a number and return the entire string as unParsed', function () {
+  it('Should not parse the toBeParsed string if it doesnt start with a number and return the entire string as unParsed', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.numberParser('abcd1234')),
       JSON.stringify({ parsed: null, unParsed: 'abcd1234', isParsed: false }));
+  });
+
+  it('Should not parse the toBeParsed string if it doesnt start with a number and return the entire string as unParsed', function () {
+    assert.equal(JSON.stringify(parsers.unitParsers.numberParser('ab1234cd')),
+      JSON.stringify({ parsed: null, unParsed: 'ab1234cd', isParsed: false }));
   });
 })
 

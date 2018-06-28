@@ -3,19 +3,21 @@ var unitParsers = {
   booleanParser: function booleanParser(toBeParsed) {
     let parsed = null
     let unParsed = toBeParsed
-
+    let isParsed = false;
     if (toBeParsed.match(/^true/) !== null) {
       parsed = true
       unParsed = toBeParsed.replace(/^true/, '')
+      isParsed = true;
     }
 
     if (toBeParsed.match(/^false/) !== null) {
       parsed = false
       unParsed = toBeParsed.replace(/^false/, '')
+      isParsed = true
     }
 
     return {
-      parsed, unParsed
+      parsed, unParsed, isParsed
     }
   },
 
@@ -90,13 +92,13 @@ var unitParsers = {
   },
 
   stringParser: function stringParser(toBeParsed){
-    let unparsed = toBeParsed;
+    let unParsed = toBeParsed;
     let parsed = null;
     let index = 1;
     let string = "'";
     let isParsed = false;
 
-    if (unparsed[0] === ("'"))
+    if (unParsed[0] === ("'"))
       {
        while(toBeParsed.charAt(index) !== "'"){
         s = toBeParsed.charAt(index)
@@ -108,9 +110,9 @@ var unitParsers = {
       if (parsed !== null){
         isParsed = true
       }
-      unparsed = toBeParsed.substr(index+1);
-      return {parsed , unparsed, isParsed}
+      unParsed = toBeParsed.substr(index+1);
     }
+    return {parsed, unParsed, isParsed}
   }
 }
 
