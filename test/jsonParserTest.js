@@ -5,17 +5,17 @@ var parsers = require('../jsonParser')
 describe('boolean parser', function () {
   it('Should parse true value when to parse string starts with true', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.booleanParser('true123')),
-      JSON.stringify({ parsed: true, unParsed: '123' }));
+      JSON.stringify({ parsed: true, unParsed: '123', isParsed: true }));
   });
 
   it('Should parse false value when to parse string starts with false', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.booleanParser('false123')),
-      JSON.stringify({ parsed: false, unParsed: '123' }));
+      JSON.stringify({ parsed: false, unParsed: '123',isParsed: true }));
   });
 
   it('Should parse not value', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.booleanParser('tfalse123')),
-      JSON.stringify({ parsed: null, unParsed: 'tfalse123' }));
+      JSON.stringify({ parsed: null, unParsed: 'tfalse123', isParsed: false }));
   });
 
 });
