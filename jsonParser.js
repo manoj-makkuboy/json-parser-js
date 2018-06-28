@@ -87,16 +87,16 @@ var unitParsers = {
     isParsed = true;
     unParsed = toBeParsed.substr(count);
     return {parsed, unParsed, isParsed}
-  }
+  },
 
   stringParser: function stringParser(toBeParsed){
-    let unparsed = toBeParsed;
+    let unParsed = toBeParsed;
     let parsed = null;
     let index = 1;
     let string = "'";
     let isParsed = false;
 
-    if (unparsed[0] === ("'"))
+    if (unParsed[0] === ("'"))
       {
        while(toBeParsed.charAt(index) !== "'"){
         s = toBeParsed.charAt(index)
@@ -108,9 +108,9 @@ var unitParsers = {
       if (parsed !== null){
         isParsed = true
       }
-      unparsed = toBeParsed.substr(index+1);
-      return {parsed , unparsed, isParsed}
+      unParsed = toBeParsed.substr(index+1);
     }
+    return {parsed, unParsed, isParsed}
   }
 }
 
