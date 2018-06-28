@@ -146,6 +146,60 @@ var compoundParsers = {
 
     unParsed = unParsed.replace(']', '')
     return { parsed, unParsed, isParsed }
+  },
+
+  objectParser: function objectParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = false
+    
+    if(unParsed[0] !== '{')
+      return { parsed, unParsed, isParsed }
+
+    toBeParsed = toBeParsed.replace('{','')
+
+    parsed = {}
+    unParsed = toBeParsed;
+    pair = []
+    while (unParsed[0] !== '}') {
+      let stringParserReturn = unitParsers.stringParser(unParsed)
+      if (stringParserReturn.isParsed)
+        pair.push(stringParserReturn.parsed)
+      if(pair.length == 2) {
+        parsed[pair[0]] = pair[1]
+        pair = []
+      }
+      unParsed = stringParserReturn.unParsed
+
+      let numberParserReturn = unitParsers.numberParser(unParsed)
+      if (numberParserReturn.isParsed)
+        pair.push(numberParserReturn.parsed)
+      if(pair.length == 2) {
+        parsed[pair[0]] = pair[1]
+        pair = []
+      }
+      unParsed = numberParserReturn.unParsed
+
+      let booleanParserReturn = unitParsers.stringParser(unParsed)
+      if (booleanParserReturn.isParsed)
+        pair.push(booleanParserReturn.parsed)
+      if(pair.length == 2) {
+        parsed[pair[0]] = pair[1]
+        pair = []
+      }
+      unParsed = booleanParserReturn.unParsed
+
+      let commaParserReturn = unitParsers.commaParser(unParsed)
+      unParsed = commaParserReturn.unParsed
+
+      let colonParserReturn = unitParsers.colonParser(unParsed)
+      unParsed = colonParserReturn.unParsed
+
+    }
+
+    unParsed = unParsed.replace('}', '');
+    isParsed = true;
+    return { parsed, unParsed, isParsed }
   }
 }
 

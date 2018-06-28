@@ -108,3 +108,19 @@ describe('string parser', function(){
       JSON.stringify({ parsed: "abcd13124", unParsed: '', isParsed: true }));
   });
 })
+
+describe('object parser', function () {
+  it('Should parse the given object properly', function () {
+    // let objectParserResult = parsers.compoundParsers.objectParser("{'name': 'Lopa', 'age': 27}")
+    assert.equal(JSON.stringify(parsers.compoundParsers.objectParser("{'name':'Lopa','age':27}")),
+      JSON.stringify({ parsed: {'name':'Lopa','age':27}, unParsed: "", isParsed: true }));
+    // assert.equal(objectParserResult.parsed[0], true)
+    // assert.equal(objectParserResult.parsed[1], false)
+  })
+
+  it('Should return empty parsed object when the input it empty object string', function () {
+    let objectParserResult = parsers.compoundParsers.objectParser('{}')
+    assert.equal(JSON.stringify(objectParserResult.parsed) === JSON.stringify({}),
+    true);
+  })
+})
