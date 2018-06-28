@@ -105,7 +105,7 @@ var unitParsers = {
        }
       string = string.concat(toBeParsed.charAt(index));
       parsed = string;
-      if parsed !== null{
+      if (parsed !== null){
         isParsed = true
       }
       unparsed = toBeParsed.substr(index+1);
