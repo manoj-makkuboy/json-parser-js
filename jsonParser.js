@@ -100,13 +100,11 @@ var unitParsers = {
 
     if ((unParsed[0] === ("'")) || (unParsed[0] === ("\"")))
       {
-       string = unParsed[0]
        while(!['\'','"'].includes(toBeParsed.charAt(index))){
         s = toBeParsed.charAt(index)
         string = string.concat(s)
         index++
       }
-      string = string.concat(toBeParsed.charAt(index));
       parsed = string;
       if (parsed !== null){
         isParsed = true

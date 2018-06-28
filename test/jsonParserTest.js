@@ -90,7 +90,7 @@ describe('number parser', function(){
 describe('string parser', function(){
   it('Should parse string  part of toBeParsed string that starts with a string and return the remaining string as unParsed', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.stringParser("'abcdd',gjhg")),
-      JSON.stringify({ parsed: "'abcdd'", unParsed: ',gjhg', isParsed: true }));
+      JSON.stringify({ parsed: "abcdd", unParsed: ',gjhg', isParsed: true }));
   });
 
   it('Should parse not the toBeParsed string if it doesnt start with a string and return the entire string as unParsed', function () {
@@ -100,11 +100,11 @@ describe('string parser', function(){
 
   it('Should parse the toBeParsed string if it  has numbers inside the string and return the entire string as Parsed', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.stringParser("'abcd13124'")),
-      JSON.stringify({ parsed: "'abcd13124'", unParsed: '', isParsed: true }));
+      JSON.stringify({ parsed: "abcd13124", unParsed: '', isParsed: true }));
   });
 
   it('Should parse the toBeParsed string if it  has numbers inside the string and return the entire string as Parsed', function () {
     assert.equal(JSON.stringify(parsers.unitParsers.stringParser("\"abcd13124\"")),
-      JSON.stringify({ parsed: "\"abcd13124\"", unParsed: '', isParsed: true }));
+      JSON.stringify({ parsed: "abcd13124", unParsed: '', isParsed: true }));
   });
 })
