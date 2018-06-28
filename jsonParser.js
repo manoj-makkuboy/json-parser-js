@@ -3,19 +3,21 @@ var unitParsers = {
   booleanParser: function booleanParser(toBeParsed) {
     let parsed = null
     let unParsed = toBeParsed
-
+    let isParsed = false;
     if (toBeParsed.match(/^true/) !== null) {
       parsed = true
       unParsed = toBeParsed.replace(/^true/, '')
+      isParsed = true;
     }
 
     if (toBeParsed.match(/^false/) !== null) {
       parsed = false
       unParsed = toBeParsed.replace(/^false/, '')
+      isParsed = true
     }
 
     return {
-      parsed, unParsed
+      parsed, unParsed, isParsed
     }
   },
 
