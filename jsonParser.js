@@ -122,8 +122,9 @@ var compoundParsers = {
     let unParsed = toBeParsed
     let isParsed = false
 
-    if (unParsed[0] !== '[')
-      return { parsed, unParsed }
+    if (unParsed[0] !== '[') {
+      return { parsed, unParsed, isParsed }
+    }
 
     toBeParsed = toBeParsed.replace('[', '')
 
@@ -131,19 +132,29 @@ var compoundParsers = {
     unParsed = toBeParsed
     while (unParsed[0] !== ']') {
       let nullParserReturn = unitParsers.nullParser(unParsed)
+      nullParserReturn.isParsed ? parsed.push(nullParserReturn.parsed) : parsed
       unParsed = nullParserReturn.unParsed
 
       let booleanParserReturn = unitParsers.booleanParser(unParsed)
-      parsed.push(booleanParserReturn.parsed)
+      booleanParserReturn.parsed !== null ? parsed.push(booleanParserReturn.parsed) : parsed
       unParsed = booleanParserReturn.unParsed
 
       let commaParserReturn = unitParsers.commaParser(unParsed)
       unParsed = commaParserReturn.unParsed
 
-      isParsed = true
+      let stringParserReturn = unitParsers.stringParser(unParsed)
+      stringParserReturn.parsed !== null ? parsed.push(stringParserReturn.parsed) : parsed
+      unParsed = stringParserReturn.unParsed
 
+      let numberParserReturn = unitParsers.numberParser(unParsed)
+      numberParserReturn.parsed !== null ? parsed.push(numberParserReturn.parsed) : parsed
+      unParsed = numberParserReturn.unParsed
+
+      let objectParserReturn = compoundParsers.objectParser(unParsed)
+      objectParserReturn.parsed !== null ? parsed.push(objectParserReturn.parsed) : parsed
+      unParsed = objectParserReturn.unParsed
     }
-
+    isParsed = true
     unParsed = unParsed.replace(']', '')
     return { parsed, unParsed, isParsed }
   },
