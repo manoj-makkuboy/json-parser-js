@@ -160,7 +160,7 @@ var compoundParsers = {
 
     parsed = {}
     unParsed = toBeParsed;
-    pair = []
+    let pair = []
     while (unParsed[0] !== '}') {
       let stringParserReturn = unitParsers.stringParser(unParsed)
       if (stringParserReturn.isParsed)
@@ -180,7 +180,7 @@ var compoundParsers = {
       }
       unParsed = numberParserReturn.unParsed
 
-      let booleanParserReturn = unitParsers.stringParser(unParsed)
+      let booleanParserReturn = unitParsers.booleanParser(unParsed)
       if (booleanParserReturn.isParsed)
         pair.push(booleanParserReturn.parsed)
       if(pair.length == 2) {
@@ -188,6 +188,15 @@ var compoundParsers = {
         pair = []
       }
       unParsed = booleanParserReturn.unParsed
+
+      let arrayParserReturn = compoundParsers.arrayParser(unParsed)
+      if (arrayParserReturn.isParsed)
+        pair.push(arrayParserReturn.parsed)
+      if(pair.length == 2) {
+        parsed[pair[0]] = pair[1]
+        pair = []
+      }
+      unParsed = arrayParserReturn.unParsed
 
       let commaParserReturn = unitParsers.commaParser(unParsed)
       unParsed = commaParserReturn.unParsed
@@ -200,11 +209,78 @@ var compoundParsers = {
     unParsed = unParsed.replace('}', '');
     isParsed = true;
     return { parsed, unParsed, isParsed }
+  },
+
+  valueParser: function valueParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = false
+
+    let stringParserReturn = unitParsers.stringParser(unParsed)
+    if(stringParserReturn.isParsed) {
+      parsed = stringParserReturn.parsed
+      unParsed = stringParserReturn.unParsed
+      isParsed = true
+      return { parsed, unParsed, isParsed }
+    }
+    
+    let numberParserReturn = unitParsers.numberParser(unParsed)
+    if(numberParserReturn.isParsed) {
+      parsed = numberParserReturn.parsed
+      unParsed = numberParserReturn.unParsed
+      isParsed = true
+      return { parsed, unParsed, isParsed }
+    }
+
+    let nullParserReturn = unitParsers.nullParser(unParsed)
+    if(nullParserReturn.isParsed) {
+      parsed = nullParserReturn.parsed
+      unParsed = nullParserReturn.unParsed
+      isParsed = true
+      return { parsed, unParsed, isParsed }
+    }    
+
+    let booleanParserReturn = unitParsers.booleanParser(unParsed)
+    if(booleanParserReturn.isParsed) {
+      parsed = booleanParserReturn.parsed
+      unParsed = booleanParserReturn.unParsed
+      isParsed = true
+      return { parsed, unParsed, isParsed }
+    }
+
+    return { parsed, unParsed, isParsed }
+  }
+}
+
+var jsonParser = {
+  jsonParser: function jsonParser(toBeParsed) {
+    let parsed = null
+    let unParsed = toBeParsed
+    let isParsed = false
+
+    if(unParsed[0] === '[') {
+      let arrayParserReturn = compoundParsers.arrayParser(unParsed)
+      parsed = arrayParserReturn.parsed
+      unParsed = arrayParserReturn.unParsed
+      isParsed = arrayParserReturn.isParsed
+    }
+    else if(unParsed[0] === '{') {
+      let objectParserReturn = compoundParsers.objectParser(unParsed)
+      parsed = objectParserReturn.parsed
+      unParsed = objectParserReturn.unParsed
+      isParsed = objectParserReturn.isParsed
+    }
+    else {
+      let valueParserReturn = compoundParsers.valueParser(unParsed)
+      parsed = valueParserReturn.parsed
+      unParsed = valueParserReturn.unParsed
+      isParsed = valueParserReturn.isParsed
+    }
+
+    return { parsed, unParsed, isParsed }
   }
 }
 
 exports.unitParsers = unitParsers
 exports.compoundParsers = compoundParsers
-
-// var a = process.argv[2];
-// console.log(compoundParsers.arrayParser(a));
+exports.jsonParser = jsonParser
